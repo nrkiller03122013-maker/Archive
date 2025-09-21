@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Course Modules</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .folder {
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .folder-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .folder-name img {
+      width: 24px;
+    }
+    .file-list {
+      display: none;
+      margin-left: 35px;
+      margin-top: 5px;
+    }
+    .file-list li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Youdemi</h2>
+
+  <div class="folder" onclick="toggleList('revision')">
+    <div class="folder-name">
+      <img src="https://img.icons8.com/ios-filled/50/000000/folder-invoices.png" />
+      <strong>Introduction</strong>
+    </div>
+    <span>20 file(s)</span>
+  </div>
+  <ul id="revision" class="file-list">
+    <li>Revision Sheet 1.pdf</li>
+    <li>Revision Sheet 2.pdf</li>
+    <!-- more -->
+  </ul>
+
+  <div class="folder" onclick="toggleList('numberSystem')">
+    <div class="folder-name">
+      <img src="https://img.icons8.com/ios-filled/50/000000/folder-invoices.png" />
+      <strong>chapter1</strong>
+    </div>
+    <span>5 video(s), 9 file(s)</span>
+  </div>
+  <ul id="numberSystem" class="file-list">
+    <li>Intro</li>
+    <li>chapter1.pdf</li>
+  </ul>
+
+  <div class="folder" onclick="toggleList('algebra')">
+    <div class="folder-name">
+      <img src="https://img.icons8.com/ios-filled/50/000000/folder-invoices.png" />
+      <strong>cjapter2</strong>
+    </div>
+    <span>4 video(s), 8 file(s)</span>
+  </div>
+  <ul id="algebra" class="file-list">
+    <li>1</li>
+    <li>chapter2.pdf</li>
+  </ul>
+
+  <script>
+    function toggleList(id) {
+      const list = document.getElementById(id);
+      list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+    }
+  </script>
+
+</body>
+</html>

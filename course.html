@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Categories | Youdemi</title>
+
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./assets/font/font.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+
+  <!-- Header Component -->
+  <div id="header-container"></div>
+
+  <!-- Course Categories Section -->
+  <main>
+    <section class="section category has-bg-image" aria-labelledby="category-label"
+      style="background-image: url('./assets/images/category-bg.png')">
+      <div class="container">
+
+        <p class="title-sm text-center section-subtitle" id="category-label">Course Categories</p>
+
+        <h2 class="headline-md text-center section-title">
+          Browse Top <span class="span has-after">Categories</span>
+        </h2>
+
+        <ul class="grid-list">
+
+          <!-- Repeat for each category -->
+          <li>
+            <div class="card category-card">
+              <div class="card-icon">
+                <img src="./assets/images/category-1.svg" width="72" height="72" loading="lazy" alt="Data Science icon" />
+              </div>
+              <div>
+                <h3 class="title-lg">Data Science</h3>
+                <p class="title-sm">68 Courses</p>
+              </div>
+              <a href="datascience.html" class="layer-link" aria-label="Data Science Category"></a>
+            </div>
+          </li>
+
+           <li>
+              <div class="card category-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/category-2.svg" width="72" height="72" loading="lazy"
+                    alt="UI/UX Design icon">
+                </div>
+
+                <div>
+                  <h3 class="title-lg">UI/UX Design</h3>
+
+                  <p class="title-sm">68 Courses</p>
+                </div>
+
+                <a href="uiux-design.html" class="layer-link" aria-label="UI/UX Design Category"></a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="card category-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/category-3.svg" width="72" height="72" loading="lazy"
+                    alt="Modern Physics icon">
+                </div>
+
+                <div>
+                  <h3 class="title-lg">Modern Physics</h3>
+
+                  <p class="title-sm">68 Courses</p>
+                </div>
+
+                <a href="modern-physics.html" class="layer-link" aria-label="Modern Physics Category"></a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="card category-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/category-4.svg" width="72" height="72" loading="lazy"
+                    alt="Music Production icon">
+                </div>
+
+                <div>
+                  <h3 class="title-lg">Music Production</h3>
+
+                  <p class="title-sm">68 Courses</p>
+                </div>
+
+                <a href="music-production.html" class="layer-link" aria-label="Music Production Category"></a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="card category-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/category-5.svg" width="72" height="72" loading="lazy"
+                    alt="Data Science icon">
+                </div>
+
+                <div>
+                  <h3 class="title-lg">Data Science</h3>
+
+                  <p class="title-sm">68 Courses</p>
+                </div>
+
+                <a href="datascience.html" class="layer-link" aria-label="Data Science Category"></a>
+
+              </div>
+            </li>
+
+            <li>
+              <div class="card category-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/category-6.svg" width="72" height="72" loading="lazy" alt="Finances icon">
+                </div>
+
+                <div>
+                  <h3 class="title-lg">Finances</h3>
+
+                  <p class="title-sm">68 Courses</p>
+                </div>
+
+                <a href="finances.html" class="layer-link" aria-label="Finances Category"></a>
+
+              </div>
+            </li>
+
+        </ul>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-links">
+          <a href="legal.html" class="footer-link">Legal</a>
+          <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="copyright">
+          © Copyright 2024 | Youdemi Template | All Rights Reserved by Youdemi
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--gray-web);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--orange-crayola);
+    }
+
+    @media (max-width: 768px) {
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+
+  <script src="./assets/js/auth-guard.js"></script>
+  <script src="./assets/js/header.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script>
+    // Protect course page - require authentication
+    document.addEventListener('DOMContentLoaded', function() {
+      requireAuth();
+    });
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

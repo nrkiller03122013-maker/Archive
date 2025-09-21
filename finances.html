@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finances Videos</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <!-- Header Component -->
+  <div id="header-container"></div>
+
+  <main class="video-gallery">
+    <section class="section has-bg-image" style="background-image: url('./assets/images/category-bg.png')">
+      <div class="container">
+        <p class="title-sm text-center section-subtitle">Finances Course</p>
+        <h2 class="headline-md text-center section-title">
+          Master <span class="span has-after">Personal Finance</span>
+        </h2>
+
+        <div class="video-grid">
+          <!-- Video 1 -->
+          <div class="video-card">
+            <div class="video-container">
+              <video class="video-player" id="video1" preload="metadata">
+                <source src="./assets/img/VID-20250627-WA0003.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-overlay" onclick="toggleVideo('video1')">
+                <div class="play-button" id="playBtn1">
+                  <ion-icon name="play" class="play-icon"></ion-icon>
+                </div>
+              </div>
+              <div class="video-controls">
+                <button class="control-btn" onclick="toggleVideo('video1')" id="controlBtn1">
+                  <ion-icon name="play" id="controlIcon1"></ion-icon>
+                </button>
+                <div class="progress-container">
+                  <div class="progress-bar" id="progressBar1"></div>
+                </div>
+                <span class="time-display" id="timeDisplay1">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="video-info">
+              <h3 class="title-lg">Budgeting Basics</h3>
+              <p class="title-sm">Learn how to create and maintain a personal budget</p>
+            </div>
+          </div>
+
+          <!-- Video 2 -->
+          <div class="video-card">
+            <div class="video-container">
+              <video class="video-player" id="video2" preload="metadata">
+                <source src="./assets/img/VID-20250627-WA0002.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-overlay" onclick="toggleVideo('video2')">
+                <div class="play-button" id="playBtn2">
+                  <ion-icon name="play" class="play-icon"></ion-icon>
+                </div>
+              </div>
+              <div class="video-controls">
+                <button class="control-btn" onclick="toggleVideo('video2')" id="controlBtn2">
+                  <ion-icon name="play" id="controlIcon2"></ion-icon>
+                </button>
+                <div class="progress-container">
+                  <div class="progress-bar" id="progressBar2"></div>
+                </div>
+                <span class="time-display" id="timeDisplay2">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="video-info">
+              <h3 class="title-lg">Investment Strategies</h3>
+              <p class="title-sm">Understand different investment options and risk management</p>
+            </div>
+          </div>
+
+          <!-- Video 3 -->
+          <div class="video-card">
+            <div class="video-container">
+              <video class="video-player" id="video3" preload="metadata">
+                <source src="./assets/img/VID-20250627-WA0005.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="video-overlay" onclick="toggleVideo('video3')">
+                <div class="play-button" id="playBtn3">
+                  <ion-icon name="play" class="play-icon"></ion-icon>
+                </div>
+              </div>
+              <div class="video-controls">
+                <button class="control-btn" onclick="toggleVideo('video3')" id="controlBtn3">
+                  <ion-icon name="play" id="controlIcon3"></ion-icon>
+                </button>
+                <div class="progress-container">
+                  <div class="progress-bar" id="progressBar3"></div>
+                </div>
+                <span class="time-display" id="timeDisplay3">0:00 / 0:00</span>
+              </div>
+            </div>
+            <div class="video-info">
+              <h3 class="title-lg">Retirement Planning</h3>
+              <p class="title-sm">Plan for your financial future and retirement goals</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <img src="./assets/images/logo-footer.svg" width="145" height="27" alt="Youdemi home" />
+          </a>
+          <p class="body-md footer-text">
+            Empowering learners worldwide with quality education and innovative learning experiences.
+          </p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="body-sm copyright">
+          Copyright 2024 All Rights Reserved by <a href="#" class="copyright-link">Youdemi</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .video-gallery {
+      padding: 2rem 0;
+    }
+    
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .video-card {
+      background: var(--white);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .video-container {
+      position: relative;
+      background: #000;
+      aspect-ratio: 16/9;
+    }
+    
+    .video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    
+    .video-overlay.playing {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .play-button {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .play-button:hover {
+      transform: scale(1.1);
+    }
+    
+    .play-icon {
+      font-size: 2rem;
+      color: var(--orange-crayola);
+      margin-left: 4px;
+    }
+    
+    .video-controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .video-container:hover .video-controls {
+      opacity: 1;
+    }
+    
+    .control-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background-color 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .progress-container {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--orange-crayola);
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    
+    .time-display {
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      min-width: 80px;
+      text-align: right;
+    }
+    
+    .video-info {
+      padding: 1.5rem;
+    }
+    
+    .video-info h3 {
+      margin-bottom: 0.5rem;
+      color: var(--rich-black-fogra-29);
+    }
+    
+    .video-info p {
+      color: var(--gray-web);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .play-button {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .play-icon {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleVideo(videoId) {
+      const video = document.getElementById(videoId);
+      const overlay = video.parentElement.querySelector('.video-overlay');
+      const controlIcon = document.getElementById('controlIcon' + videoId.slice(-1));
+      
+      if (video.paused) {
+        // Pause all other videos first
+        document.querySelectorAll('.video-player').forEach(v => {
+          if (v.id !== videoId) {
+            v.pause();
+            v.parentElement.querySelector('.video-overlay').classList.remove('playing');
+            const otherControlIcon = document.getElementById('controlIcon' + v.id.slice(-1));
+            otherControlIcon.name = 'play';
+          }
+        });
+        
+        video.play();
+        overlay.classList.add('playing');
+        controlIcon.name = 'pause';
+      } else {
+        video.pause();
+        overlay.classList.remove('playing');
+        controlIcon.name = 'play';
+      }
+    }
+    
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+    
+    // Initialize video players
+    document.addEventListener('DOMContentLoaded', function() {
+      const videos = document.querySelectorAll('.video-player');
+      
+      videos.forEach((video, index) => {
+        const videoNum = index + 1;
+        const progressBar = document.getElementById('progressBar' + videoNum);
+        const timeDisplay = document.getElementById('timeDisplay' + videoNum);
+        const progressContainer = progressBar.parentElement;
+        
+        // Update progress and time
+        video.addEventListener('timeupdate', function() {
+          const progress = (video.currentTime / video.duration) * 100;
+          progressBar.style.width = progress + '%';
+          
+          const currentTime = formatTime(video.currentTime);
+          const duration = formatTime(video.duration);
+          timeDisplay.textContent = `${currentTime} / ${duration}`;
+        });
+        
+        // Click on progress bar to seek
+        progressContainer.addEventListener('click', function(e) {
+          const rect = progressContainer.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          const width = rect.width;
+          const percentage = clickX / width;
+          video.currentTime = percentage * video.duration;
+        });
+        
+        // Reset overlay when video ends
+        video.addEventListener('ended', function() {
+          const overlay = video.parentElement.querySelector('.video-overlay');
+          const controlIcon = document.getElementById('controlIcon' + videoNum);
+          overlay.classList.remove('playing');
+          controlIcon.name = 'play';
+        });
+        
+        // Initialize time display
+        video.addEventListener('loadedmetadata', function() {
+          const duration = formatTime(video.duration);
+          timeDisplay.textContent = `0:00 / ${duration}`;
+        });
+      });
+    });
+  </script>
+
+  <script src="./assets/js/auth-guard.js"></script>
+  <script src="./assets/js/header.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script>
+    // Protect course page - require authentication
+    document.addEventListener('DOMContentLoaded', function() {
+      requireAuth();
+    });
+  </script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

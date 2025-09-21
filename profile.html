@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Youdemi</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- custom font -->
+  <link rel="stylesheet" href="./assets/font/font.css">
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- preload images -->
+  <link rel="preload" as="image" href="./assets/images/hero-bg.png">
+
+  <style>
+    /* Profile specific styles */
+    .profile-section {
+      padding: 120px 0 80px;
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c69 100%);
+      position: relative;
+    }
+
+    .profile-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('./assets/images/hero-bg.png') no-repeat center center;
+      background-size: cover;
+      opacity: 0.1;
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .profile-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .profile-title {
+      color: white;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+
+    .profile-title .span {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 24px;
+      padding: 60px 50px;
+      text-align: center;
+      position: relative;
+      border: none;
+      transition: all 0.4s ease;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 35px 70px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-avatar {
+      margin-bottom: 30px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .avatar-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 6px solid #ff6b35;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+    }
+
+    .profile-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+      background: #28a745;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 35px;
+      letter-spacing: -0.5px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      margin-bottom: 45px;
+      padding: 0 20px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 25px 20px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .stat-item:hover {
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe6d9 100%);
+      border-color: #ff6b35;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: #ff6b35;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: #6c757d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+
+    .profile-info {
+      margin-bottom: 45px;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 20px 25px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .info-item:hover {
+      background: #fff5f0;
+      border-left-color: #ff6b35;
+      transform: translateX(5px);
+    }
+
+    .info-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .info-icon {
+      width: 24px;
+      height: 24px;
+      color: #ff6b35;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #495057;
+      font-size: 15px;
+    }
+
+    .info-value {
+      color: #6c757d;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .info-value.email {
+      color: #ff6b35;
+      font-weight: 600;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 35px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      min-width: 160px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff8c69 100%);
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #e55a2e 0%, #ff7850 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #495057;
+      border: 2px solid #dee2e6;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary:hover {
+      background: #f8f9fa;
+      border-color: #ff6b35;
+      color: #ff6b35;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .profile-section {
+        padding: 100px 0 60px;
+      }
+
+      .profile-card {
+        padding: 40px 30px;
+        margin: 0 15px;
+      }
+
+      .profile-title {
+        font-size: 36px;
+      }
+
+      .profile-name {
+        font-size: 28px;
+      }
+
+      .avatar-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .stats-grid {
+        gap: 15px;
+        padding: 0 10px;
+      }
+
+      .stat-item {
+        padding: 20px 15px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+      }
+
+      .profile-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .action-btn {
+        width: 100%;
+        max-width: 280px;
+      }
+
+      .info-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+        padding: 18px 20px;
+      }
+
+      .info-left {
+        justify-content: center;
+        margin-bottom: 5px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-card {
+        padding: 30px 20px;
+        margin: 0 10px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .profile-title {
+        font-size: 28px;
+      }
+
+      .profile-name {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Component -->
+  <div id="header-container"></div>
+
+  <!-- PROFILE SECTION -->
+  <main>
+    <section class="section profile-section has-bg-image" style="background-image: url('./assets/images/hero-bg.png')">
+      <div class="container">
+        
+        <div class="profile-header">
+          <p class="profile-subtitle">My Account</p>
+          <h1 class="profile-title">User <span class="span">Profile</span></h1>
+        </div>
+
+        <div class="profile-card">
+          
+          <div class="profile-avatar">
+            <img src="./assets/images/ins-1.png" alt="Profile Picture" class="avatar-img">
+          </div>
+          
+          <h2 class="profile-name">John Doe</h2>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number">12</div>
+              <div class="stat-label">Courses</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">8</div>
+              <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">156</div>
+              <div class="stat-label">Hours</div>
+            </div>
+          </div>
+          
+          <div class="profile-info">
+            <div class="info-item">
+              <div class="info-left">
+                <ion-icon name="mail-outline" class="info-icon"></ion-icon>
+                <span class="info-label">Email:</span>
+              </div>
+              <span class="info-value email">johndoe@example.com</span>
+            </div>
+            <div class="info-item">
+              <div class="info-left">
+                <ion-icon name="calendar-outline" class="info-icon"></ion-icon>
+                <span class="info-label">Joined:</span>
+              </div>
+              <span class="info-value">March 2024</span>
+            </div>
+            <div class="info-item">
+              <div class="info-left">
+                <ion-icon name="shield-checkmark-outline" class="info-icon"></ion-icon>
+                <span class="info-label">Status:</span>
+              </div>
+              <span class="info-value">Pro Member</span>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="action-btn btn-secondary" onclick="editProfile()">
+              <ion-icon name="create-outline"></ion-icon>
+              Edit Profile
+            </button>
+            <button class="action-btn btn-primary" onclick="logout()">
+              <ion-icon name="log-out-outline"></ion-icon>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    
+    <div class="section footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="index.html" class="logo">
+            <img src="./assets/images/logo-footer.svg" width="145" height="27" alt="Youdemi home">
+          </a>
+
+          <p class="title-sm footer-text">
+            Lorem ipsum amet, consectetur adipiscing elit. Suspendis varius enim eros elementum tristique. Duis cursus.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/facebook.svg" width="40" height="40" loading="lazy" alt="facebook">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/twitter.svg" width="40" height="40" loading="lazy" alt="twitter">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/pinterest.svg" width="40" height="40" loading="lazy" alt="pinterest">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/instagram.svg" width="40" height="40" loading="lazy" alt="instagram">
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="headline-sm footer-list-title">Links</p>
+          </li>
+
+          <li>
+            <a href="index.html" class="title-sm footer-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="title-sm footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="pricing.html" class="title-sm footer-link">Pricing</a>
+          </li>
+
+          <li>
+            <a href="course.html" class="title-sm footer-link">Courses</a>
+          </li>
+
+          <li>
+            <a href="contact.html" class="title-sm footer-link">Contact Us</a>
+          </li>
+
+          <li>
+            <a href="blog.html" class="title-sm footer-link">Blog</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="headline-sm footer-list-title">Legal</p>
+          </li>
+
+          <li>
+            <a href="legal.html" class="title-sm footer-link">Legal</a>
+          </li>
+
+          <li>
+            <a href="terms-of-use.html" class="title-sm footer-link">Terms of Use</a>
+          </li>
+
+          <li>
+            <a href="terms-conditions.html" class="title-sm footer-link">Terms & Conditions</a>
+          </li>
+
+          <li>
+            <a href="payment-method.html" class="title-sm footer-link">Payment Method</a>
+          </li>
+
+          <li>
+            <a href="privacy-policy.html" class="title-sm footer-link">Privacy Policy</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+
+            <p class="headline-sm footer-list-title">Instagram Post</p>
+
+            <ul class="grid-list">
+
+              <li>
+                <img src="./assets/images/ins-1.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-2.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-3.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-4.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-5.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-6.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+            </ul>
+
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          © Copyright 2024 | Youdemi Template | All Rights Reserved by Youdemi
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- JS -->
+  <script>
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        AuthManager.logout();
+      }
+    }
+
+    function editProfile() {
+      alert('Edit profile functionality will be implemented soon!');
+    }
+
+    // Check authentication on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!requireAuth()) {
+        return; // User will be redirected to login
+      }
+
+      // Load user data into profile
+      const user = AuthManager.getCurrentUser();
+      if (user) {
+        // Update profile information
+        const profileName = document.querySelector('.profile-name');
+        const emailText = document.querySelector('.info-value.email');
+        
+        if (profileName) {
+          profileName.textContent = user.firstname || user.name || 'User';
+        }
+        
+        if (emailText) {
+          emailText.textContent = user.email || 'user@example.com';
+        }
+      }
+    });
+  </script>
+
+  <script src="./assets/js/auth-guard.js"></script>
+  <script src="./assets/js/header.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <!-- ionicons -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

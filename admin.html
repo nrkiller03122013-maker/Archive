@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin | Youdemi</title>
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/font/font.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table th, .admin-table td { padding: 12px; border-bottom: 1px solid var(--black_10); text-align: left; }
+    .admin-badge { padding: 4px 12px; border-radius: var(--radius-4); font-size: 12px; font-weight: 600; }
+    .admin-badge.admin { background: #ff6b35; color: white; }
+    .admin-badge.user { background: #e9ecef; color: #495057; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .admin-actions { display: flex; gap: 10px; }
+    
+    /* Action buttons */
+    .action-btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500; }
+    .edit-btn { background: #007bff; color: white; }
+    .edit-btn:hover { background: #0056b3; }
+    .delete-btn { background: #dc3545; color: white; }
+    .delete-btn:hover { background: #c82333; }
+    .toggle-btn { background: #28a745; color: white; }
+    .toggle-btn:hover { background: #1e7e34; }
+    
+    /* Modal styles */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+    .modal-content { background-color: white; margin: 10% auto; padding: 0; border-radius: 8px; width: 90%; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    .modal-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h3 { margin: 0; color: #333; }
+    .close { color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer; }
+    .close:hover { color: #000; }
+    
+    /* Form styles */
+    .form-group { padding: 15px 20px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
+    .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #ff6b35; }
+    .form-actions { padding: 20px; border-top: 1px solid #eee; display: flex; gap: 10px; justify-content: flex-end; }
+    .form-actions button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; }
+    .form-actions button[type="submit"] { background: #ff6b35; color: white; }
+    .form-actions button[type="submit"]:hover { background: #e55a2e; }
+    .form-actions button[type="button"] { background: #6c757d; color: white; }
+    .form-actions button[type="button"]:hover { background: #5a6268; }
+  </style>
+  <script src="./assets/js/auth-guard.js"></script>
+</head>
+
+<body>
+
+  <div class="preloader" data-preloader>
+    <div class="circle" data-circle></div>
+  </div>
+
+  <header class="header" data-header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
+      </a>
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top">
+          <a href="index.html" class="logo">
+            <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
+          </a>
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+        <ul class="navbar-list">
+          <li class="navbar-item"><a href="admin.html" class="navbar-link title-sm" data-nav-link>Dashboard</a></li>
+          <li class="navbar-item"><a href="admin-profile.html" class="navbar-link title-sm" data-nav-link>Profile</a></li>
+          <li class="navbar-item"><a href="#" class="navbar-link title-sm" onclick="logout()" data-nav-link>Logout</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+          <ion-icon name="menu-outline" aria-hidden="true" class="open"></ion-icon>
+          <ion-icon name="close-outline" aria-hidden="true" class="close"></ion-icon>
+        </button>
+      </div>
+      <div class="overlay" data-overlay data-nav-toggler></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" aria-labelledby="admin-label">
+      <div class="container">
+        <p class="title-sm section-subtitle" id="admin-label">Admin Dashboard</p>
+        <h2 class="headline-md section-title">All <span class="span">Users</span></h2>
+
+        <div class="card">
+          <div class="title-sm" id="admin-status"></div>
+          <div class="card" style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit User Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit User</h3>
+        <span class="close" onclick="closeEditModal()">&times;</span>
+      </div>
+      <form id="editUserForm">
+        <div class="form-group">
+          <label for="editFirstname">First Name:</label>
+          <input type="text" id="editFirstname" required>
+        </div>
+        <div class="form-group">
+          <label for="editEmail">Email:</label>
+          <input type="email" id="editEmail" required>
+        </div>
+        <div class="form-group">
+          <label for="editIsAdmin">Role:</label>
+          <select id="editIsAdmin">
+            <option value="false">User</option>
+            <option value="true">Admin</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="button" onclick="closeEditModal()">Cancel</button>
+          <button type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')"></footer>
+
+  <script>
+    function logout() {
+      localStorage.removeItem('auth_token');
+      window.location.href = 'login.html';
+    }
+
+    async function loadUsers() {
+      const token = localStorage.getItem('auth_token');
+      const status = document.getElementById('admin-status');
+      if (!token) {
+        status.textContent = 'Not authenticated';
+        return (window.location.href = 'login.html');
+      }
+      try {
+        const meRes = await fetch('http://localhost:4000/api/auth/me', { headers: { Authorization: `Bearer ${token}` }});
+        if (!meRes.ok) throw new Error('Auth check failed');
+        const me = await meRes.json();
+        if (!me.user || !me.user.isAdmin) {
+          status.textContent = 'Forbidden: Admins only';
+          setTimeout(() => window.location.href = 'login.html', 2000);
+          return;
+        }
+
+        // Show welcome message
+        status.innerHTML = `Welcome, <strong>${me.user.firstname}</strong> (Admin)`;
+
+        const res = await fetch('http://localhost:4000/api/admin/users', { headers: { Authorization: `Bearer ${token}` }});
+        if (!res.ok) throw new Error('Failed to fetch users');
+        const data = await res.json();
+        const tbody = document.getElementById('users-tbody');
+        tbody.innerHTML = '';
+        data.users.forEach((u, idx) => {
+          const tr = document.createElement('tr');
+          const isCurrentUser = me.user.id === u._id;
+          tr.innerHTML = `
+            <td>${idx + 1}</td>
+            <td>${u.firstname || ''}</td>
+            <td>${u.email}</td>
+            <td><span class="admin-badge ${u.isAdmin ? 'admin' : 'user'}">${u.isAdmin ? 'Admin' : 'User'}</span></td>
+            <td>${new Date(u.createdAt).toLocaleDateString()}</td>
+            <td>
+              <button class="action-btn edit-btn" onclick="editUser('${u._id}', '${u.firstname}', '${u.email}', ${u.isAdmin})">Edit</button>
+              ${!isCurrentUser ? `<button class="action-btn delete-btn" onclick="deleteUser('${u._id}', '${u.firstname}')">Delete</button>` : ''}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        
+        // Update status with count and refresh button
+        const refreshBtn = '<button onclick="loadUsers()" style="margin-left: 10px; padding: 5px 10px; background: var(--orange-soda); color: white; border: none; border-radius: 4px; cursor: pointer;">Refresh</button>';
+        status.innerHTML = `Welcome, <strong>${me.user.firstname}</strong> (Admin) - ${data.users.length} user(s) ${refreshBtn}`;
+      } catch (e) {
+        status.textContent = 'Error loading users';
+        console.error('Error:', e);
+      }
+    }
+
+    let currentEditingUserId = null;
+
+    function editUser(id, firstname, email, isAdmin) {
+      currentEditingUserId = id;
+      document.getElementById('editFirstname').value = firstname;
+      document.getElementById('editEmail').value = email;
+      document.getElementById('editIsAdmin').value = isAdmin.toString();
+      document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      currentEditingUserId = null;
+    }
+
+    async function updateUser(event) {
+      event.preventDefault();
+      if (!currentEditingUserId) return;
+
+      const token = localStorage.getItem('auth_token');
+      const firstname = document.getElementById('editFirstname').value;
+      const email = document.getElementById('editEmail').value;
+      const isAdmin = document.getElementById('editIsAdmin').value === 'true';
+
+      try {
+        const res = await fetch(`http://localhost:4000/api/admin/users/${currentEditingUserId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ firstname, email, isAdmin })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert('Error: ' + data.message);
+          return;
+        }
+
+        alert('User updated successfully!');
+        closeEditModal();
+        loadUsers(); // Refresh the user list
+      } catch (error) {
+        alert('Error updating user: ' + error.message);
+      }
+    }
+
+    async function deleteUser(id, firstname) {
+      if (!confirm(`Are you sure you want to delete user "${firstname}"? This action cannot be undone.`)) {
+        return;
+      }
+
+      const token = localStorage.getItem('auth_token');
+      try {
+        const res = await fetch(`http://localhost:4000/api/admin/users/${id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          alert('Error: ' + data.message);
+          return;
+        }
+
+        alert('User deleted successfully!');
+        loadUsers(); // Refresh the user list
+      } catch (error) {
+        alert('Error deleting user: ' + error.message);
+      }
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById('editModal');
+      if (event.target === modal) {
+        closeEditModal();
+      }
+    }
+
+    // Attach form submit handler
+    document.getElementById('editUserForm').addEventListener('submit', updateUser);
+
+    loadUsers();
+  </script>
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

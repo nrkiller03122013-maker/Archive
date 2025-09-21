@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>
+    Pricing | Youdemi
+  </title>
+  <meta name="title" content="Pricing | Youdemi">
+  <meta name="description" content="Choose the perfect plan for your learning journey">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom font link
+  -->
+  <link rel="stylesheet" href="./assets/font/font.css">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="./assets/images/hero-banner.png">
+  <link rel="preload" as="image" href="./assets/images/hero-bg.png">
+
+  <style>
+    .pricing-card {
+      background: var(--white);
+      border-radius: var(--radius-20);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      border: 2px solid var(--cultured);
+      transition: var(--transition-1);
+      height: 100%;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--orange-soda);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-2);
+    }
+
+    .pricing-card.featured {
+      border-color: var(--orange-soda);
+      background: linear-gradient(135deg, var(--orange-soda_10) 0%, var(--white) 100%);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange-soda);
+      color: var(--white);
+      padding: 8px 20px;
+      border-radius: var(--radius-20);
+      font-size: var(--fontSize-7);
+      font-weight: var(--weight-semiBold);
+    }
+
+    .pricing-title {
+      margin-bottom: 20px;
+      color: var(--raisin-black);
+    }
+
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .currency {
+      font-size: var(--fontSize-3);
+      color: var(--orange-soda);
+      font-weight: var(--weight-bold);
+    }
+
+    .amount {
+      font-size: 60px;
+      font-weight: var(--weight-bold);
+      color: var(--raisin-black);
+      line-height: 1;
+      margin: 0 5px;
+    }
+
+    .period {
+      font-size: var(--fontSize-7);
+      color: var(--sonic-silver);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 40px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--black_10);
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--orange-soda);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .feature-icon.disabled {
+      background: var(--cultured);
+    }
+
+    .feature-icon ion-icon {
+      color: var(--white);
+      font-size: 12px;
+    }
+
+    .feature-icon.disabled ion-icon {
+      color: var(--sonic-silver);
+    }
+
+    .feature-text {
+      color: var(--raisin-black);
+      font-size: var(--fontSize-7);
+    }
+
+    .feature-text.disabled {
+      color: var(--sonic-silver);
+      text-decoration: line-through;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .faq-section {
+      background: var(--cultured);
+      padding: 80px 0;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-12);
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid var(--black_10);
+    }
+
+    .faq-question {
+      padding: 25px 30px;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: var(--fontSize-6);
+      font-weight: var(--weight-semiBold);
+      color: var(--raisin-black);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition-1);
+    }
+
+    .faq-question:hover {
+      background: var(--orange-soda_10);
+    }
+
+    .faq-icon {
+      transition: var(--transition-1);
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 200px;
+    }
+
+    .faq-answer-content {
+      padding: 0 30px 25px;
+      color: var(--sonic-silver);
+      line-height: 1.6;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: var(--cultured);
+      border-radius: 15px;
+      cursor: pointer;
+      transition: var(--transition-1);
+    }
+
+    .switch.active {
+      background: var(--orange-soda);
+    }
+
+    .switch-handle {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      background: var(--white);
+      border-radius: 50%;
+      transition: var(--transition-1);
+    }
+
+    .switch.active .switch-handle {
+      transform: translateX(30px);
+    }
+
+    .switch-label {
+      font-size: var(--fontSize-6);
+      font-weight: var(--weight-semiBold);
+      color: var(--raisin-black);
+    }
+
+    .switch-label.active {
+      color: var(--orange-soda);
+    }
+
+    .discount-badge {
+      background: var(--orange-soda);
+      color: var(--white);
+      padding: 4px 8px;
+      border-radius: var(--radius-4);
+      font-size: var(--fontSize-8);
+      font-weight: var(--weight-bold);
+      margin-left: 10px;
+    }
+  </style>
+
+</head>
+
+<body id="Top">
+
+  <!-- 
+    - PRELOADER
+  -->
+
+  <div class="preloader" data-preloader>
+    <div class="circle" data-circle></div>
+  </div>
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="index.html" class="logo">
+        <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
+      </a>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+          <a href="index.html" class="logo">
+            <img src="./assets/images/logo.svg" width="145" height="27" alt="Youdemi home">
+          </a>
+
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+ 
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="index.html" class="navbar-link title-sm" data-nav-link>Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="course.html" class="navbar-link title-sm" data-nav-link>Courses</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="blog.html" class="navbar-link title-sm" data-nav-link>Blog</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="contact.html" class="navbar-link title-sm" data-nav-link>Contacts</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="pricing.html" class="navbar-link title-sm" data-nav-link>Pricing</a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+      <!-- <div class="header-actions">
+        <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+          <ion-icon name="menu-outline" aria-hidden="true" class="open"></ion-icon>
+          <ion-icon name="close-outline" aria-hidden="true" class="close"></ion-icon>
+        </button>
+      </div> -->
+
+      <div class="overlay" data-overlay data-nav-toggler></div>
+
+    </div>
+  </header>
+
+  <main>
+    <article>
+
+      <!-- 
+        - #PRICING HERO
+      -->
+
+      <section class="section hero has-bg-image" aria-labelledby="pricing-label"
+        style="background-image: url('./assets/images/hero-bg.png')">
+        <div class="container">
+
+          <div class="hero-content" style="text-align: center; max-width: 800px; margin: 0 auto;">
+
+            <h1 class="headline-lg" id="pricing-label">
+              Choose Your <span class="span">Learning Plan</span>
+            </h1>
+
+            <p class="title-md has-before">
+              Unlock your potential with our flexible pricing options designed for every learner's journey.
+            </p>
+
+            <!-- Billing Toggle -->
+            <div class="toggle-switch">
+              <span class="switch-label" id="monthly-label">Monthly</span>
+              <div class="switch" id="billing-switch">
+                <div class="switch-handle"></div>
+              </div>
+              <span class="switch-label" id="yearly-label">
+                Yearly <span class="discount-badge">Save 20%</span>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 
+        - #PRICING PLANS
+      -->
+
+      <section class="section" aria-labelledby="plans-label">
+        <div class="container">
+
+          <div class="pricing-grid">
+
+            <!-- Basic Plan -->
+            <div class="pricing-card">
+              <h3 class="headline-sm pricing-title">Basic</h3>
+              <div class="pricing-price">
+                <span class="currency">₹</span>
+                <span class="amount" id="basic-price">19</span>
+                <span class="period" id="basic-period">/month</span>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Access to 50+ courses</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Mobile app access</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Basic certificate</span>
+                </li>
+                <li>
+                  <div class="feature-icon disabled">
+                    <ion-icon name="close"></ion-icon>
+                  </div>
+                  <span class="feature-text disabled">Live sessions</span>
+                </li>
+                <li>
+                  <div class="feature-icon disabled">
+                    <ion-icon name="close"></ion-icon>
+                  </div>
+                  <span class="feature-text disabled">1-on-1 mentoring</span>
+                </li>
+                <li>
+                  <div class="feature-icon disabled">
+                    <ion-icon name="close"></ion-icon>
+                  </div>
+                  <span class="feature-text disabled">Priority support</span>
+                </li>
+              </ul>
+              <a href="signup.html" class="btn btn-secondary">Get Started</a>
+            </div>
+
+            <!-- Pro Plan (Featured) -->
+            <div class="pricing-card featured">
+              <div class="pricing-badge">Most Popular</div>
+              <h3 class="headline-sm pricing-title">Pro</h3>
+              <div class="pricing-price">
+                <span class="currency">₹</span>
+                <span class="amount" id="pro-price">49</span>
+                <span class="period" id="pro-period">/month</span>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Access to 200+ courses</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Mobile app access</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Pro certificate</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Live sessions</span>
+                </li>
+                <li>
+                  <div class="feature-icon disabled">
+                    <ion-icon name="close"></ion-icon>
+                  </div>
+                  <span class="feature-text disabled">1-on-1 mentoring</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Email support</span>
+                </li>
+              </ul>
+              <a href="signup.html" class="btn btn-primary">Get Started</a>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="pricing-card">
+              <h3 class="headline-sm pricing-title">Premium</h3>
+              <div class="pricing-price">
+                <span class="currency">₹</span>
+                <span class="amount" id="premium-price">99</span>
+                <span class="period" id="premium-period">/month</span>
+              </div>
+              <ul class="pricing-features">
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Unlimited courses</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Mobile app access</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Premium certificate</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Live sessions</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">1-on-1 mentoring</span>
+                </li>
+                <li>
+                  <div class="feature-icon">
+                    <ion-icon name="checkmark"></ion-icon>
+                  </div>
+                  <span class="feature-text">Priority support</span>
+                </li>
+              </ul>
+              <a href="signup.html" class="btn btn-tertiary">Get Started</a>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 
+        - #FAQ SECTION
+      -->
+
+      <section class="faq-section" aria-labelledby="faq-label">
+        <div class="container">
+
+          <div style="text-align: center; margin-bottom: 60px;">
+            <p class="title-sm section-subtitle">FAQ</p>
+            <h2 class="headline-md section-title">Frequently Asked <span class="span">Questions</span></h2>
+          </div>
+
+          <div style="max-width: 800px; margin: 0 auto;">
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Can I change my plan anytime?</span>
+                <ion-icon name="chevron-down-outline" class="faq-icon"></ion-icon>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Is there a free trial available?</span>
+                <ion-icon name="chevron-down-outline" class="faq-icon"></ion-icon>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  We offer a 7-day free trial for all our paid plans. No credit card required to start your trial.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>What payment methods do you accept?</span>
+                <ion-icon name="chevron-down-outline" class="faq-icon"></ion-icon>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  We accept all major credit cards, PayPal, and bank transfers for annual subscriptions.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Can I get a refund?</span>
+                <ion-icon name="chevron-down-outline" class="faq-icon"></ion-icon>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  Yes, we offer a 30-day money-back guarantee. If you're not satisfied, we'll provide a full refund.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                <span>Do you offer student discounts?</span>
+                <ion-icon name="chevron-down-outline" class="faq-icon"></ion-icon>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-content">
+                  Yes, we offer a 50% student discount with a valid student ID. Contact our support team to apply for the discount.
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 
+        - #CTA
+      -->
+
+      <section class="cta" aria-labelledby="cta-label">
+        <div class="container">
+
+          <h2 class="headline-md section-title" id="cta-label">
+            Ready To Start Your Learning Journey?
+          </h2>
+
+          <a href="signup.html" class="btn btn-tertiary">Start Your Free Trial</a>
+
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+
+    <div class="section footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="index.html" class="logo">
+            <img src="./assets/images/logo-footer.svg" width="145" height="27" alt="Youdemi home">
+          </a>
+
+          <p class="title-sm footer-text">
+            Lorem ipsum amet, consectetur adipiscing elit. Suspendis varius enim eros elementum tristique. Duis cursus.
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/facebook.svg" width="40" height="40" loading="lazy" alt="facebook">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/twitter.svg" width="40" height="40" loading="lazy" alt="twitter">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/pinterest.svg" width="40" height="40" loading="lazy" alt="pinterest">
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <img src="./assets/images/instagram.svg" width="40" height="40" loading="lazy" alt="instagram">
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="headline-sm footer-list-title">Links</p>
+          </li>
+
+          <li>
+            <a href="index.html" class="title-sm footer-link">Home</a>
+          </li>
+
+          <li>
+            <a href="#" class="title-sm footer-link">About Us</a>
+          </li>
+
+          <li>
+            <a href="pricing.html" class="title-sm footer-link">Pricing</a>
+          </li>
+
+          <li>
+            <a href="course.html" class="title-sm footer-link">Courses</a>
+          </li>
+
+          <li>
+            <a href="contact.html" class="title-sm footer-link">Contact Us</a>
+          </li>
+
+          <li>
+            <a href="blog.html" class="title-sm footer-link">Blog</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="headline-sm footer-list-title">Legal</p>
+          </li>
+
+          <li>
+            <a href="legal.html" class="title-sm footer-link">Legal</a>
+          </li>
+
+          <li>
+            <a href="terms-of-use.html" class="title-sm footer-link">Terms of Use</a>
+          </li>
+
+          <li>
+            <a href="terms-conditions.html" class="title-sm footer-link">Terms & Conditions</a>
+          </li>
+
+          <li>
+            <a href="payment-method.html" class="title-sm footer-link">Payment Method</a>
+          </li>
+
+          <li>
+            <a href="privacy-policy.html" class="title-sm footer-link">Privacy Policy</a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+
+            <p class="headline-sm footer-list-title">Instagram Post</p>
+
+            <ul class="grid-list">
+
+              <li>
+                <img src="./assets/images/ins-1.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-2.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-3.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-4.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-5.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+              <li>
+                <img src="./assets/images/ins-6.png" width="80" height="80" loading="lazy" alt="instagram post"
+                  class="img-cover">
+              </li>
+
+            </ul>
+
+          </li>
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          © Copyright 2024 | Youdemi Template | All Rights Reserved by Youdemi
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- 
+   - custom js link
+  -->
+  <script>
+    // Billing toggle functionality
+    const billingSwitch = document.getElementById('billing-switch');
+    const monthlyLabel = document.getElementById('monthly-label');
+    const yearlyLabel = document.getElementById('yearly-label');
+    const basicPrice = document.getElementById('basic-price');
+    const proPrice = document.getElementById('pro-price');
+    const premiumPrice = document.getElementById('premium-price');
+    const basicPeriod = document.getElementById('basic-period');
+    const proPeriod = document.getElementById('pro-period');
+    const premiumPeriod = document.getElementById('premium-period');
+
+    let isYearly = false;
+
+    const monthlyPrices = { basic: 19, pro: 49, premium: 99 };
+    const yearlyPrices = { basic: 15, pro: 39, premium: 79 };
+
+    billingSwitch.addEventListener('click', () => {
+      isYearly = !isYearly;
+      billingSwitch.classList.toggle('active');
+      monthlyLabel.classList.toggle('active');
+      yearlyLabel.classList.toggle('active');
+
+      if (isYearly) {
+        basicPrice.textContent = yearlyPrices.basic;
+        proPrice.textContent = yearlyPrices.pro;
+        premiumPrice.textContent = yearlyPrices.premium;
+        basicPeriod.textContent = '/month';
+        proPeriod.textContent = '/month';
+        premiumPeriod.textContent = '/month';
+      } else {
+        basicPrice.textContent = monthlyPrices.basic;
+        proPrice.textContent = monthlyPrices.pro;
+        premiumPrice.textContent = monthlyPrices.premium;
+        basicPeriod.textContent = '/month';
+        proPeriod.textContent = '/month';
+        premiumPeriod.textContent = '/month';
+      }
+    });
+
+    // FAQ accordion functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all other FAQ items
+        faqItems.forEach(otherItem => {
+          otherItem.classList.remove('active');
+        });
+
+        // Toggle current item
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

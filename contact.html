@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Youdemi</title>
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/font/font.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+  <div class="preloader" data-preloader>
+    <div class="circle" data-circle></div>
+  </div>
+
+  <!-- Header Component -->
+  <div id="header-container"></div>
+
+  <main>
+    <section class="section has-bg-image" aria-labelledby="contact-label" style="background-image: url('./assets/images/category-bg.png')">
+      <div class="container">
+        <p class="title-sm text-center section-subtitle" id="contact-label">Contact Us</p>
+        <h2 class="headline-md text-center section-title">We'd love to <span class="span">hear from you</span></h2>
+
+        <div class="card contact-card">
+          <form id="contact-form" class="contact-form">
+            <div class="contact-field">
+              <label class="title-sm contact-label" for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" class="contact-input" placeholder="Your name">
+            </div>
+            <div class="contact-field">
+              <label class="title-sm contact-label" for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" class="contact-input" placeholder="you@example.com">
+            </div>
+            <div class="contact-field">
+              <label class="title-sm contact-label" for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" class="contact-textarea" placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+            <p id="contact-status" class="title-sm contact-status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    <div class="container">
+      <div class="footer-bottom">
+        <div class="footer-links">
+          <a href="legal.html" class="footer-link">Legal</a>
+          <a href="terms-of-use.html" class="footer-link">Terms of Use</a>
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="copyright">
+          © Copyright 2024 | Youdemi Template | All Rights Reserved by Youdemi
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const statusEl = document.getElementById('contact-status');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      statusEl.textContent = 'Thanks! We\'ll get back to you soon.';
+      form.reset();
+    });
+  </script>
+  <style>
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      color: var(--gray-web);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--orange-crayola);
+    }
+
+    @media (max-width: 768px) {
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+
+  <script src="./assets/js/auth-guard.js"></script>
+  <script src="./assets/js/header.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
+

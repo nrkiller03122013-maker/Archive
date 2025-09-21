@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal - Youdemi</title>
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/font/font.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+
+  <!-- Header Component -->
+  <div id="header-container"></div>
+
+  <!-- Legal Section -->
+  <main>
+    <section class="section" style="padding: 80px 0;">
+      <div class="container" style="max-width: 600px; text-align: center;">
+        
+        <h1 class="headline-md" style="margin-bottom: 2rem;">Legal</h1>
+        
+        <div class="legal-links">
+          <div class="legal-card">
+            <h2 class="title-lg">Legal</h2>
+            <p class="body-md">Overview of our legal framework and policies</p>
+          </div>
+
+          <a href="terms-of-use.html" class="legal-link-card">
+            <h3 class="title-lg">Terms of Use</h3>
+            <p class="body-md">Rules and guidelines for using our platform</p>
+            <ion-icon name="chevron-forward-outline" class="link-icon"></ion-icon>
+          </a>
+
+          <a href="terms-conditions.html" class="legal-link-card">
+            <h3 class="title-lg">Terms & Conditions</h3>
+            <p class="body-md">Detailed terms governing your use of our services</p>
+            <ion-icon name="chevron-forward-outline" class="link-icon"></ion-icon>
+          </a>
+
+          <a href="payment-method.html" class="legal-link-card">
+            <h3 class="title-lg">Payment Method</h3>
+            <p class="body-md">Information about payment processing and security</p>
+            <ion-icon name="chevron-forward-outline" class="link-icon"></ion-icon>
+          </a>
+
+          <a href="privacy-policy.html" class="legal-link-card">
+            <h3 class="title-lg">Privacy Policy</h3>
+            <p class="body-md">How we collect, use, and protect your personal data</p>
+            <ion-icon name="chevron-forward-outline" class="link-icon"></ion-icon>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer has-bg-image" style="background-image: url('./assets/images/footer-bg.png')">
+    <div class="container">
+      <div class="footer-bottom">
+        <p class="body-sm copyright">
+          Copyright 2024 All Rights Reserved by <a href="#" class="copyright-link">Youdemi</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .legal-links {
+      display: grid;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .legal-card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 10px;
+    }
+
+    .legal-link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .legal-link-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      border-left-color: var(--orange-crayola);
+    }
+
+    .legal-link-card h3 {
+      color: var(--rich-black-fogra-29);
+      margin-bottom: 8px;
+    }
+
+    .legal-link-card p {
+      color: var(--gray-web);
+      margin: 0;
+    }
+
+    .link-icon {
+      font-size: 1.5rem;
+      color: var(--orange-crayola);
+      flex-shrink: 0;
+      margin-left: 20px;
+    }
+
+    .legal-card h2 {
+      color: var(--rich-black-fogra-29);
+      margin-bottom: 15px;
+    }
+
+    .legal-card p {
+      color: var(--gray-web);
+    }
+
+    @media (max-width: 768px) {
+      .legal-link-card {
+        padding: 20px;
+      }
+
+      .link-icon {
+        margin-left: 15px;
+      }
+    }
+  </style>
+
+  <script src="./assets/js/auth-guard.js"></script>
+  <script src="./assets/js/header.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
