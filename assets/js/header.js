@@ -17,12 +17,18 @@ const HeaderComponent = {
     ];
     
     // Auth-based navigation items
-    const authNavItems = isLoggedIn ? [
-      { href: 'profile.html', text: 'Profile' }
-    ] : [
-      { href: 'login.html', text: 'Login' },
-      { href: 'signup.html', text: 'Sign Up' }
-    ];
+    let authNavItems = [];
+    if (isLoggedIn) {
+      // Add profile tab only if not on admin.html
+      if (currentPage !== 'admin.html') {
+        authNavItems.push({ href: 'profile.html', text: 'Profile' });
+      }
+    } else {
+      authNavItems = [
+        { href: 'login.html', text: 'Login' },
+        { href: 'signup.html', text: 'Sign Up' }
+      ];
+    }
     
     // Combine all nav items
     const allNavItems = [...baseNavItems, ...authNavItems];
@@ -71,18 +77,21 @@ const HeaderComponent = {
 
   // Initialize header on page load
   init() {
-    // Wait for AuthManager to be available
+    const currentPage = window.location.pathname.split('/').pop();
+
+    // Skip header injection for admin.html
+    if (currentPage === 'admin.html') {
+      return;
+    }
+
     const initHeader = () => {
       const headerContainer = document.getElementById('header-container');
       if (headerContainer) {
         headerContainer.innerHTML = this.generateHeader();
-        
-        // Re-initialize any header scripts (like mobile menu)
         this.initializeHeaderScripts();
       }
     };
 
-    // Check if AuthManager is available, if not wait a bit
     if (typeof AuthManager !== 'undefined') {
       initHeader();
     } else {
